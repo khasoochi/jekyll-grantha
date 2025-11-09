@@ -1,0 +1,143 @@
+---
+layout: default
+---
+
+<article class="verse-page">
+  <!-- Breadcrumbs -->
+  {% if site.theme_settings.layout.breadcrumbs %}
+    {% include breadcrumbs.html %}
+  {% endif %}
+
+  <!-- Verse navigation -->
+  <nav class="verse-nav">
+    {% if page.previous_verse %}
+      <a href="{{ page.previous_verse }}" class="btn btn--small">← Previous</a>
+    {% endif %}
+
+    <span class="verse-nav__location">
+      {{ page.text | capitalize }} - Chapter {{ page.chapter }}, Verse {{ page.verse }}
+    </span>
+
+    {% if page.next_verse %}
+      <a href="{{ page.next_verse }}" class="btn btn--small">Next →</a>
+    {% endif %}
+  </nav>
+
+  <!-- Main verse -->
+  <div class="verse" id="verse-{{ page.chapter }}-{{ page.verse }}">
+    <span class="verse__number">{{ page.chapter }}.{{ page.verse }}</span>
+    <a href="#verse-{{ page.chapter }}-{{ page.verse }}" class="verse__anchor" aria-label="Link to this verse">#</a>
+
+    {% if page.devanagari %}
+      <div class="verse__devanagari devanagari">
+        {{ page.devanagari }}
+      </div>
+    {% endif %}
+
+    {% if page.transliteration %}
+      <div class="verse__transliteration roman">
+        {{ page.transliteration }}
+      </div>
+    {% endif %}
+
+    {% if page.translation %}
+      <div class="verse__translation roman">
+        {{ page.translation }}
+      </div>
+    {% endif %}
+
+    {% if page.meter %}
+      <div class="verse__meter">
+        Meter: <em>{{ page.meter }}</em>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Commentary sections -->
+  {% if page.commentary %}
+    <div class="commentaries">
+      <h2>Commentary</h2>
+
+      {% for comment in page.commentary %}
+        <div class="commentary" id="commentary-{{ forloop.index }}">
+          <div class="commentary__header">
+            <div class="commentary__title">
+              {% if comment.type %}
+                <span class="commentary__type">{{ comment.type }}</span>
+              {% endif %}
+              {% if comment.author %}
+                <span class="commentary__author">{{ comment.author }}</span>
+              {% endif %}
+            </div>
+            <div class="commentary__toggle"></div>
+          </div>
+
+          <div class="commentary__body">
+            <div class="commentary__content {% if comment.script == 'devanagari' %}commentary__content--devanagari{% else %}commentary__content--roman{% endif %}">
+              {{ comment.content | markdownify }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Critical apparatus -->
+  {% if page.critical_apparatus %}
+    <div class="critical-apparatus">
+      <div class="critical-apparatus__label">Critical Apparatus</div>
+      {% for entry in page.critical_apparatus %}
+        <div class="critical-apparatus__entry">
+          <span class="critical-apparatus__reading">{{ entry.reading }}</span>
+          <span class="critical-apparatus__source">{{ entry.source }}</span>
+          {% if entry.note %}
+            <span class="critical-apparatus__note">{{ entry.note }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <!-- Main content (if any additional content) -->
+  {% if content %}
+    <div class="verse-content">
+      {{ content }}
+    </div>
+  {% endif %}
+
+  <!-- Ornamental divider -->
+  <div class="ornamental-divider">
+    <span class="ornamental-divider__symbol">❦</span>
+  </div>
+</article>
+
+<style>
+  .verse-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+    padding: var(--spacing-md);
+    background: var(--color-hover);
+    border-radius: var(--radius-md);
+    flex-wrap: wrap;
+  }
+
+  .verse-nav__location {
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .commentaries {
+    margin-top: var(--spacing-xxl);
+  }
+
+  .commentaries h2 {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .verse-content {
+    margin-top: var(--spacing-xxl);
+  }
+</style>

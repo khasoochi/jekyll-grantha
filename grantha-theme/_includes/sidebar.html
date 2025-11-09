@@ -1,0 +1,104 @@
+<!-- Sidebar for Table of Contents -->
+<aside class="sidebar {% if site.theme_settings.layout.sidebar_position == 'right' %}sidebar--right{% endif %}" id="sidebar">
+  <!-- Table of Contents -->
+  {% if page.toc != false %}
+    <nav class="toc" id="toc">
+      <h3 class="toc__title">Table of Contents</h3>
+
+      {% if page.chapters %}
+        <!-- For text with multiple chapters -->
+        <ul class="toc__list">
+          {% for i in (1..page.chapters) %}
+            <li class="toc__item">
+              <a href="{{ page.url | relative_url }}chapter-{{ i }}" class="toc__link {% if page.current_chapter == i %}toc__link--active{% endif %}">
+                Chapter {{ i }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% elsif page.verses %}
+        <!-- For chapter with multiple verses -->
+        <ul class="toc__list">
+          {% for verse in page.verses %}
+            <li class="toc__item">
+              <a href="#verse-{{ page.chapter }}-{{ verse }}" class="toc__link">
+                Verse {{ verse }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <!-- Auto-generated from headers (using JavaScript) -->
+        <ul class="toc__list" id="toc-list">
+          <!-- Will be populated by JavaScript -->
+        </ul>
+      {% endif %}
+    </nav>
+  {% endif %}
+
+  <!-- Bookmarks list (if feature enabled) -->
+  {% if site.theme_settings.features.bookmarks %}
+    <div class="bookmarks-list" id="bookmarks-list">
+      <h3>Bookmarks</h3>
+      <ul id="bookmarks-items">
+        <!-- Will be populated by JavaScript -->
+      </ul>
+    </div>
+  {% endif %}
+</aside>
+
+<!-- Mobile sidebar toggle button -->
+<button class="btn btn--icon sidebar-toggle d-lg-none" id="sidebar-toggle" aria-label="Toggle sidebar">
+  ☰
+</button>
+
+<style>
+  .sidebar-toggle {
+    position: fixed;
+    top: calc(var(--header-height) + var(--spacing-md));
+    right: var(--spacing-md);
+    z-index: calc({{ "$z-index-fixed" }} + 1);
+    width: 40px;
+    height: 40px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .bookmarks-list {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .bookmarks-list h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .bookmarks-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .bookmarks-list li {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .bookmarks-list a {
+    display: block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-small);
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-fast);
+  }
+
+  .bookmarks-list a:hover {
+    background: var(--color-hover);
+  }
+
+  .bookmarks-list .remove-bookmark {
+    float: right;
+    color: var(--color-vermillion);
+    cursor: pointer;
+  }
+</style>

@@ -1,0 +1,133 @@
+---
+layout: default
+---
+
+<article class="text-page">
+  <!-- Breadcrumbs -->
+  {% if site.theme_settings.layout.breadcrumbs %}
+    {% include breadcrumbs.html %}
+  {% endif %}
+
+  <!-- Text header -->
+  <header class="text-header">
+    <h1 class="text-header__title {% if page.script == 'devanagari' %}devanagari{% endif %}">
+      {{ page.title }}
+    </h1>
+
+    {% if page.title_transliteration %}
+      <p class="text-header__transliteration roman">
+        {{ page.title_transliteration }}
+      </p>
+    {% endif %}
+
+    <!-- Metadata -->
+    <div class="text-header__meta">
+      {% if page.author %}
+        <span class="text-header__author">
+          <strong>Author:</strong> <span class="{% if page.script == 'devanagari' %}devanagari{% endif %}">{{ page.author }}</span>
+        </span>
+      {% endif %}
+
+      {% if page.translator %}
+        <span class="text-header__translator">
+          <strong>Translator:</strong> {{ page.translator }}
+        </span>
+      {% endif %}
+
+      {% if page.commentator %}
+        <span class="text-header__commentator">
+          <strong>Commentator:</strong> <span class="{% if page.script == 'devanagari' %}devanagari{% endif %}">{{ page.commentator }}</span>
+        </span>
+      {% endif %}
+
+      {% if page.category %}
+        <span class="text-header__category">
+          <span class="badge badge--accent">{{ page.category }}</span>
+        </span>
+      {% endif %}
+    </div>
+
+    <!-- Controls -->
+    <div class="text-controls">
+      {% if page.parallel_text %}
+        <div class="parallel-text__controls">
+          <button class="btn btn--small" id="text-mode-toggle" data-mode="side-by-side">
+            <span class="d-none d-md-inline">Side by Side</span>
+            <span class="d-md-none">Layout</span>
+          </button>
+        </div>
+      {% endif %}
+
+      {% if page.sandhi_split %}
+        <button class="btn btn--small sandhi-split" id="sandhi-toggle">
+          Sandhi Split
+        </button>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- Ornamental divider -->
+  {% if page.show_ornaments %}
+    <div class="ornamental-divider">
+      <span class="ornamental-divider__symbol">❦</span>
+    </div>
+  {% endif %}
+
+  <!-- Main content -->
+  <div class="text-content {% if page.parallel_text %}parallel-text parallel-text--side-by-side{% endif %}" id="text-content">
+    {{ content }}
+  </div>
+
+  <!-- Chapter navigation -->
+  {% if site.theme_settings.layout.chapter_navigation %}
+    {% include chapter-navigation.html %}
+  {% endif %}
+
+  <!-- Ornamental divider -->
+  {% if page.show_ornaments %}
+    <div class="ornamental-divider">
+      <span class="ornamental-divider__symbol">❦</span>
+    </div>
+  {% endif %}
+</article>
+
+<style>
+  .text-header {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .text-header__title {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .text-header__transliteration {
+    font-size: var(--font-size-large);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .text-header__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-small);
+  }
+
+  .text-header__meta > span {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--color-hover);
+    border-radius: var(--radius-sm);
+  }
+
+  .text-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+  }
+
+  .text-content {
+    margin: var(--spacing-xxl) 0;
+  }
+</style>

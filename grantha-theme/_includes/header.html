@@ -1,0 +1,96 @@
+<header class="site-header">
+  <div class="site-header__container">
+    <!-- Logo/Site title -->
+    <a href="{{ '/' | relative_url }}" class="site-header__logo">
+      {{ site.title }}
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="menu-toggle__icon"></span>
+    </button>
+
+    <!-- Navigation -->
+    <nav class="site-header__nav d-none d-md-flex">
+      <!-- Main navigation -->
+      <div class="main-nav">
+        <a href="{{ '/' | relative_url }}" class="main-nav__item {% if page.url == '/' %}main-nav__item--active{% endif %}">
+          Home
+        </a>
+        <a href="{{ '/texts/' | relative_url }}" class="main-nav__item {% if page.url contains '/texts/' %}main-nav__item--active{% endif %}">
+          Texts
+        </a>
+        <a href="{{ '/about/' | relative_url }}" class="main-nav__item {% if page.url == '/about/' %}main-nav__item--active{% endif %}">
+          About
+        </a>
+      </div>
+
+      <!-- Controls -->
+      <div class="header-controls">
+        <!-- Font size controls -->
+        {% if site.theme_settings.features.font_controls != false %}
+          <div class="font-controls">
+            <button class="font-controls__btn" id="font-decrease" aria-label="Decrease font size" title="Decrease font size">
+              A−
+            </button>
+            <button class="font-controls__btn font-controls__reset" id="font-reset" aria-label="Reset font size" title="Reset font size">
+              A
+            </button>
+            <button class="font-controls__btn" id="font-increase" aria-label="Increase font size" title="Increase font size">
+              A+
+            </button>
+          </div>
+        {% endif %}
+
+        <!-- Search -->
+        {% if site.theme_settings.features.search %}
+          <div class="search">
+            <input
+              type="search"
+              class="search__input"
+              id="search-input"
+              placeholder="Search..."
+              aria-label="Search"
+            />
+            <span class="search__icon">🔍</span>
+            <div class="search__results" id="search-results"></div>
+          </div>
+        {% endif %}
+
+        <!-- Theme toggle -->
+        {% if site.theme_settings.features.night_mode %}
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+            <span class="theme-toggle__slider"></span>
+          </button>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
+
+  <!-- Mobile navigation -->
+  <nav class="main-nav" id="mobile-nav">
+    <a href="{{ '/' | relative_url }}" class="main-nav__item {% if page.url == '/' %}main-nav__item--active{% endif %}">
+      Home
+    </a>
+    <a href="{{ '/texts/' | relative_url }}" class="main-nav__item {% if page.url contains '/texts/' %}main-nav__item--active{% endif %}">
+      Texts
+    </a>
+    <a href="{{ '/about/' | relative_url }}" class="main-nav__item {% if page.url == '/about/' %}main-nav__item--active{% endif %}">
+      About
+    </a>
+  </nav>
+</header>
+
+<style>
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+
+  @media (max-width: 767px) {
+    .header-controls {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,373 @@
+// ═══════════════════════════════════════════════════════════════════
+// UTILITIES - Helper classes
+// ═══════════════════════════════════════════════════════════════════
+
+// Display
+.d-none {
+  display: none !important;
+}
+
+.d-block {
+  display: block !important;
+}
+
+.d-inline {
+  display: inline !important;
+}
+
+.d-inline-block {
+  display: inline-block !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+// Responsive display
+@each $breakpoint in (xs, sm, md, lg, xl) {
+  @include respond-to($breakpoint) {
+    .d-#{$breakpoint}-none {
+      display: none !important;
+    }
+
+    .d-#{$breakpoint}-block {
+      display: block !important;
+    }
+
+    .d-#{$breakpoint}-flex {
+      display: flex !important;
+    }
+  }
+}
+
+// Spacing
+@each $size, $value in (
+  xs: var(--spacing-xs),
+  sm: var(--spacing-sm),
+  md: var(--spacing-md),
+  lg: var(--spacing-lg),
+  xl: var(--spacing-xl),
+  xxl: var(--spacing-xxl)
+) {
+  .m-#{$size} {
+    margin: $value !important;
+  }
+
+  .mt-#{$size} {
+    margin-top: $value !important;
+  }
+
+  .mr-#{$size} {
+    margin-right: $value !important;
+  }
+
+  .mb-#{$size} {
+    margin-bottom: $value !important;
+  }
+
+  .ml-#{$size} {
+    margin-left: $value !important;
+  }
+
+  .mx-#{$size} {
+    margin-left: $value !important;
+    margin-right: $value !important;
+  }
+
+  .my-#{$size} {
+    margin-top: $value !important;
+    margin-bottom: $value !important;
+  }
+
+  .p-#{$size} {
+    padding: $value !important;
+  }
+
+  .pt-#{$size} {
+    padding-top: $value !important;
+  }
+
+  .pr-#{$size} {
+    padding-right: $value !important;
+  }
+
+  .pb-#{$size} {
+    padding-bottom: $value !important;
+  }
+
+  .pl-#{$size} {
+    padding-left: $value !important;
+  }
+
+  .px-#{$size} {
+    padding-left: $value !important;
+    padding-right: $value !important;
+  }
+
+  .py-#{$size} {
+    padding-top: $value !important;
+    padding-bottom: $value !important;
+  }
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+
+.p-0 {
+  padding: 0 !important;
+}
+
+.m-auto {
+  margin: auto !important;
+}
+
+// Text alignment
+.text-left {
+  text-align: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+// Font weight
+.fw-light {
+  font-weight: 300 !important;
+}
+
+.fw-normal {
+  font-weight: 400 !important;
+}
+
+.fw-medium {
+  font-weight: 500 !important;
+}
+
+.fw-semibold {
+  font-weight: 600 !important;
+}
+
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+// Font style
+.fs-italic {
+  font-style: italic !important;
+}
+
+.fs-normal {
+  font-style: normal !important;
+}
+
+// Colors
+.text-primary {
+  color: var(--color-text) !important;
+}
+
+.text-muted {
+  color: var(--color-text-muted) !important;
+}
+
+.text-accent {
+  color: var(--color-accent) !important;
+}
+
+.text-vermillion {
+  color: var(--color-vermillion) !important;
+}
+
+.text-ochre {
+  color: var(--color-ochre) !important;
+}
+
+.text-gold {
+  color: var(--color-gold) !important;
+}
+
+.bg-primary {
+  background-color: var(--color-background) !important;
+}
+
+.bg-accent {
+  background-color: var(--color-accent) !important;
+  color: white !important;
+}
+
+.bg-hover {
+  background-color: var(--color-hover) !important;
+}
+
+// Width
+.w-100 {
+  width: 100% !important;
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.mw-100 {
+  max-width: 100% !important;
+}
+
+// Height
+.h-100 {
+  height: 100% !important;
+}
+
+.h-auto {
+  height: auto !important;
+}
+
+// Position
+.position-relative {
+  position: relative !important;
+}
+
+.position-absolute {
+  position: absolute !important;
+}
+
+.position-fixed {
+  position: fixed !important;
+}
+
+.position-sticky {
+  position: sticky !important;
+}
+
+// Overflow
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.overflow-auto {
+  overflow: auto !important;
+}
+
+.overflow-scroll {
+  overflow: scroll !important;
+}
+
+// Cursor
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+// User select
+.user-select-none {
+  user-select: none !important;
+}
+
+// Border
+.border {
+  border: 1px solid var(--color-border) !important;
+}
+
+.border-top {
+  border-top: 1px solid var(--color-border) !important;
+}
+
+.border-right {
+  border-right: 1px solid var(--color-border) !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--color-border) !important;
+}
+
+.border-left {
+  border-left: 1px solid var(--color-border) !important;
+}
+
+.border-0 {
+  border: none !important;
+}
+
+.rounded {
+  border-radius: var(--radius-md) !important;
+}
+
+.rounded-sm {
+  border-radius: var(--radius-sm) !important;
+}
+
+.rounded-lg {
+  border-radius: var(--radius-lg) !important;
+}
+
+// Shadow
+.shadow-sm {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.shadow {
+  box-shadow: var(--shadow-md) !important;
+}
+
+.shadow-lg {
+  box-shadow: var(--shadow-lg) !important;
+}
+
+.shadow-none {
+  box-shadow: none !important;
+}
+
+// Screen reader only
+.sr-only {
+  @include sr-only;
+}
+
+// Truncate text
+.truncate {
+  @include truncate;
+}
+
+// Line clamp
+.line-clamp-2 {
+  @include line-clamp(2);
+}
+
+.line-clamp-3 {
+  @include line-clamp(3);
+}
+
+.line-clamp-4 {
+  @include line-clamp(4);
+}
+
+// Visibility
+.visible {
+  visibility: visible !important;
+}
+
+.invisible {
+  visibility: hidden !important;
+}
+
+// Opacity
+.opacity-0 {
+  opacity: 0 !important;
+}
+
+.opacity-50 {
+  opacity: 0.5 !important;
+}
+
+.opacity-100 {
+  opacity: 1 !important;
+}
