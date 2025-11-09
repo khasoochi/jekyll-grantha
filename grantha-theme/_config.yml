@@ -1,0 +1,92 @@
+# Site settings
+title: Sanskrit/Prakrit/Pali Text Repository
+description: Classical Indic texts with scholarly apparatus
+baseurl: ""
+url: ""
+
+# Theme settings
+theme_settings:
+  fonts:
+    devanagari: "Adishila"
+    roman: "Cormorant Garamond"
+
+  colors:
+    light_mode:
+      background: "#FAF8F3"
+      text: "#2C2416"
+      accent: "#8B4513"
+      vermillion: "#E34234"
+      ochre: "#CC7722"
+      gold: "#D4AF37"
+
+    dark_mode:
+      background: "#1C1810"
+      text: "#E8E6E0"
+      accent: "#D4A574"
+      vermillion: "#FF6B5E"
+      ochre: "#E69952"
+      gold: "#FFD700"
+
+  features:
+    parallel_text: true
+    verse_numbering: true
+    commentary: true
+    progress_tracker: true
+    night_mode: true
+    search: true
+    bookmarks: true
+    critical_apparatus: true
+    footnotes: true
+
+  layout:
+    sidebar_position: "left"  # or "right"
+    toc_sticky: true
+    breadcrumbs: true
+    chapter_navigation: true
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  footnote_nr: 1
+  entity_output: as_char
+  toc_levels: 1..6
+  auto_ids: true
+  footnote_backlink: "&#8617;&#xfe0e;"
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Collections
+collections:
+  texts:
+    output: true
+    permalink: /:collection/:name
+  verses:
+    output: true
+    permalink: /:collection/:name
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "texts"
+    values:
+      layout: "text"
+  - scope:
+      path: ""
+      type: "verses"
+    values:
+      layout: "verse"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - README.md
+  - LICENSE.txt
+  - "*.gemspec"

@@ -1,0 +1,189 @@
+// ═══════════════════════════════════════════════════════════════════
+// PRINT - Styles for printing
+// ═══════════════════════════════════════════════════════════════════
+
+@media print {
+  * {
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  // Page setup
+  @page {
+    margin: 2cm;
+    size: A4;
+  }
+
+  // Hide UI elements
+  .site-header,
+  .site-footer,
+  .sidebar,
+  .chapter-nav,
+  .bookmark-btn,
+  .progress-tracker,
+  .theme-toggle,
+  .font-controls,
+  .search,
+  .menu-toggle,
+  .main-nav,
+  .toc__title,
+  .parallel-text__controls,
+  button,
+  .btn {
+    display: none !important;
+  }
+
+  // Main content
+  .content {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .main-content {
+    display: block !important;
+    max-width: 100% !important;
+  }
+
+  // Typography
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  h1 {
+    font-size: 24pt;
+    page-break-after: avoid;
+  }
+
+  h2 {
+    font-size: 18pt;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    font-size: 14pt;
+    page-break-after: avoid;
+  }
+
+  h4, h5, h6 {
+    font-size: 12pt;
+    page-break-after: avoid;
+  }
+
+  // Verses
+  .verse {
+    page-break-inside: avoid;
+    border: 1px solid #ccc !important;
+    padding: 12pt !important;
+    margin: 12pt 0 !important;
+
+    &__devanagari {
+      font-size: 14pt;
+    }
+
+    &__number {
+      position: static !important;
+      display: block;
+      margin-bottom: 6pt;
+      background: none !important;
+      border: 1px solid #ccc !important;
+    }
+
+    &__anchor {
+      display: none !important;
+    }
+  }
+
+  // Parallel text (print side by side)
+  .parallel-text {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12pt;
+    page-break-inside: avoid;
+
+    &--toggle {
+      .parallel-text__roman {
+        display: block !important;
+      }
+
+      .parallel-text__devanagari {
+        display: block !important;
+      }
+    }
+  }
+
+  // Commentary
+  .commentary {
+    page-break-inside: avoid;
+    border: 1px solid #ccc !important;
+
+    &__header {
+      background: #f0f0f0 !important;
+      cursor: default;
+    }
+
+    &__toggle {
+      display: none !important;
+    }
+
+    &__body {
+      max-height: none !important;
+      display: block !important;
+    }
+  }
+
+  // Links
+  a {
+    text-decoration: underline;
+    color: black !important;
+
+    // Print URLs for external links
+    &[href^="http"]::after {
+      content: " (" attr(href) ")";
+      font-size: 9pt;
+      font-style: italic;
+    }
+  }
+
+  // Footnotes
+  .footnotes {
+    page-break-before: always;
+    border-top: 2px solid black !important;
+  }
+
+  // Critical apparatus
+  .critical-apparatus {
+    border-left: 2px solid black !important;
+    background: #f5f5f5 !important;
+  }
+
+  // Page breaks
+  .page-break {
+    page-break-after: always;
+  }
+
+  .no-page-break {
+    page-break-inside: avoid;
+  }
+
+  // Breadcrumbs (show path)
+  .breadcrumbs {
+    font-size: 10pt;
+    margin-bottom: 12pt;
+  }
+
+  // Ornamental dividers (simplify)
+  .ornamental-divider {
+    text-align: center;
+    margin: 12pt 0;
+
+    &::before,
+    &::after {
+      background: black !important;
+    }
+  }
+}

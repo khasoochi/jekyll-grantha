@@ -1,0 +1,504 @@
+// ═══════════════════════════════════════════════════════════════════
+// SCHOLARLY - Text-specific features for Indic texts
+// ═══════════════════════════════════════════════════════════════════
+
+// Verse display
+.verse {
+  position: relative;
+  margin: var(--spacing-xl) 0;
+  padding: var(--spacing-lg);
+  border-left: 3px solid var(--color-gold);
+  background: var(--color-hover);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+
+  &__number {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    font-family: var(--font-ui);
+    font-size: var(--font-size-small);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    background: var(--color-background);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+  }
+
+  &__anchor {
+    position: absolute;
+    left: -1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  &:hover &__anchor {
+    opacity: 1;
+  }
+
+  &__devanagari {
+    @include devanagari-text;
+    font-size: var(--font-size-xlarge);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+
+    @include respond-to(md) {
+      font-size: 2rem;
+    }
+  }
+
+  &__transliteration {
+    @include roman-text;
+    font-size: var(--font-size-base);
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+  }
+
+  &__translation {
+    @include roman-text;
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__meter {
+    font-family: var(--font-ui);
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+    font-style: italic;
+    margin-top: var(--spacing-sm);
+  }
+}
+
+// Parallel text display
+.parallel-text {
+  display: grid;
+  gap: var(--spacing-lg);
+  margin: var(--spacing-xl) 0;
+
+  // Mode: Side by side (default on desktop)
+  &--side-by-side {
+    grid-template-columns: 1fr;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--spacing-xl);
+    }
+  }
+
+  // Mode: Stacked (default on mobile)
+  &--stacked {
+    grid-template-columns: 1fr;
+  }
+
+  // Mode: Toggle (show one at a time)
+  &--toggle {
+    .parallel-text__roman {
+      display: none;
+    }
+
+    &.show-roman {
+      .parallel-text__devanagari {
+        display: none;
+      }
+
+      .parallel-text__roman {
+        display: block;
+      }
+    }
+  }
+
+  &__devanagari {
+    @include devanagari-text;
+    font-size: var(--font-size-large);
+    line-height: var(--line-height-devanagari);
+  }
+
+  &__roman {
+    @include roman-text;
+  }
+
+  &__controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm);
+    background: var(--color-hover);
+    border-radius: var(--radius-md);
+  }
+}
+
+// Commentary section
+.commentary {
+  margin: var(--spacing-xl) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--color-hover);
+    cursor: pointer;
+    user-select: none;
+
+    &:hover {
+      background: var(--color-border);
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+  }
+
+  &__toggle {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform var(--transition-base);
+
+    &::after {
+      content: "▼";
+      font-size: 0.875rem;
+    }
+  }
+
+  &.is-expanded &__toggle {
+    transform: rotate(180deg);
+  }
+
+  &__body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-base);
+  }
+
+  &.is-expanded &__body {
+    max-height: 5000px;
+  }
+
+  &__content {
+    padding: var(--spacing-lg);
+
+    // Commentary can be in Devanagari
+    &--devanagari {
+      @include devanagari-text;
+    }
+
+    &--roman {
+      @include roman-text;
+    }
+  }
+
+  &__author {
+    font-style: italic;
+    color: var(--color-accent);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__type {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xsmall);
+    background: var(--color-accent);
+    color: white;
+    border-radius: var(--radius-sm);
+    margin-right: var(--spacing-sm);
+  }
+}
+
+// Table of Contents
+.toc {
+  position: sticky;
+  top: calc(var(--header-height) + var(--spacing-md));
+
+  &__title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+    border-bottom: 2px solid var(--color-border);
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  &__item {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__link {
+    display: block;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    font-size: var(--font-size-small);
+
+    &:hover {
+      background: var(--color-hover);
+      padding-left: var(--spacing-md);
+    }
+
+    &--active {
+      background: var(--color-accent);
+      color: white;
+      font-weight: 600;
+    }
+  }
+
+  // Nested TOC
+  .toc__list {
+    margin-top: var(--spacing-xs);
+    padding-left: var(--spacing-md);
+  }
+}
+
+// Breadcrumbs
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-md) 0;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+
+    &::after {
+      content: "›";
+      margin-left: var(--spacing-xs);
+    }
+
+    &:last-child::after {
+      content: none;
+    }
+  }
+
+  &__link {
+    color: var(--color-accent);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__current {
+    font-weight: 600;
+    color: var(--color-text);
+  }
+}
+
+// Chapter navigation
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin: var(--spacing-xxl) 0;
+  padding: var(--spacing-lg) 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+
+  // Stack on mobile
+  flex-direction: column;
+
+  @include respond-to(md) {
+    flex-direction: row;
+  }
+
+  &__link {
+    flex: 1;
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    transition: all var(--transition-base);
+
+    &:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-2px);
+    }
+
+    &--prev {
+      text-align: left;
+    }
+
+    &--next {
+      text-align: right;
+    }
+  }
+
+  &__label {
+    display: block;
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__title {
+    display: block;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+}
+
+// Footnotes
+.footnote {
+  font-size: var(--font-size-small);
+  vertical-align: super;
+
+  &__link {
+    color: var(--color-accent);
+    text-decoration: none;
+    padding: 0 0.2em;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.footnotes {
+  margin-top: var(--spacing-xxl);
+  padding-top: var(--spacing-lg);
+  border-top: 2px solid var(--color-border);
+  font-size: var(--font-size-small);
+
+  ol {
+    padding-left: var(--spacing-lg);
+  }
+
+  li {
+    margin-bottom: var(--spacing-md);
+
+    &:target {
+      background: var(--color-hover);
+      padding: var(--spacing-sm);
+      border-radius: var(--radius-sm);
+    }
+  }
+}
+
+// Critical apparatus
+.critical-apparatus {
+  margin: var(--spacing-lg) 0;
+  padding: var(--spacing-md);
+  background: var(--color-hover);
+  border-left: 3px solid var(--color-ochre);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-size: var(--font-size-small);
+
+  &__label {
+    font-weight: 600;
+    color: var(--color-ochre);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__entry {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  &__reading {
+    font-style: italic;
+  }
+
+  &__source {
+    color: var(--color-text-muted);
+  }
+}
+
+// Reading progress tracker
+.progress-tracker {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--color-hover);
+  z-index: $z-index-fixed;
+
+  &__bar {
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      var(--color-vermillion),
+      var(--color-ochre),
+      var(--color-gold)
+    );
+    transition: width var(--transition-fast);
+  }
+}
+
+// Bookmark button
+.bookmark-btn {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  z-index: $z-index-sticky;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: var(--shadow-lg);
+  }
+
+  &.is-bookmarked {
+    background: var(--color-gold);
+  }
+}
+
+// Sandhi split toggle
+.sandhi-split {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  margin-left: var(--spacing-sm);
+  font-size: var(--font-size-xsmall);
+  background: var(--color-hover);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: var(--color-border);
+  }
+
+  &.is-active {
+    background: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+  }
+}

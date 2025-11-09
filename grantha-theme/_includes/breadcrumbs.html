@@ -1,0 +1,28 @@
+<!-- Breadcrumbs navigation -->
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <div class="breadcrumbs__item">
+    <a href="{{ '/' | relative_url }}" class="breadcrumbs__link">Home</a>
+  </div>
+
+  {% assign path_parts = page.url | split: "/" %}
+  {% assign current_path = "" %}
+
+  {% for part in path_parts %}
+    {% if part != "" and forloop.last == false %}
+      {% assign current_path = current_path | append: "/" | append: part %}
+
+      <div class="breadcrumbs__item">
+        <a href="{{ current_path | relative_url }}" class="breadcrumbs__link">
+          {{ part | replace: "-", " " | capitalize }}
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  <!-- Current page -->
+  {% if page.title %}
+    <div class="breadcrumbs__item">
+      <span class="breadcrumbs__current">{{ page.title }}</span>
+    </div>
+  {% endif %}
+</nav>
