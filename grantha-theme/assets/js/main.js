@@ -11,20 +11,29 @@
   // ═══════════════════════════════════════════════════════════════
 
   function initThemeToggle() {
-    const toggle = document.getElementById('theme-toggle');
-    if (!toggle) return;
-
     // Get saved theme or default to light
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 
-    toggle.addEventListener('click', function() {
+    function toggleTheme() {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
       document.documentElement.setAttribute('data-theme', newTheme);
       localStorage.setItem('theme', newTheme);
+    }
+
+    // Handle both desktop and mobile theme toggles
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('[data-theme-toggle]')) {
+        toggleTheme();
+      }
     });
+
+    // Legacy support for ID-based toggle
+    const toggle = document.getElementById('theme-toggle');
+    if (toggle) {
+      toggle.addEventListener('click', toggleTheme);
+    }
   }
 
   // ═══════════════════════════════════════════════════════════════
@@ -32,12 +41,6 @@
   // ═══════════════════════════════════════════════════════════════
 
   function initFontControls() {
-    const decreaseBtn = document.getElementById('font-decrease');
-    const increaseBtn = document.getElementById('font-increase');
-    const resetBtn = document.getElementById('font-reset');
-
-    if (!decreaseBtn || !increaseBtn) return;
-
     const fontSizes = ['small', 'medium', 'large', 'xlarge'];
     let currentIndex = parseInt(localStorage.getItem('fontSizeIndex')) || 1; // medium
 
@@ -51,21 +54,42 @@
     // Apply saved font size
     updateFontSize(currentIndex);
 
-    decreaseBtn.addEventListener('click', function() {
-      if (currentIndex > 0) {
+    // Handle both desktop and mobile controls with event delegation
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+
+      const action = btn.dataset.action;
+
+      if (action === 'decrease' && currentIndex > 0) {
         updateFontSize(currentIndex - 1);
+      } else if (action === 'increase' && currentIndex < fontSizes.length - 1) {
+        updateFontSize(currentIndex + 1);
+      } else if (action === 'reset') {
+        updateFontSize(1);
       }
     });
 
-    increaseBtn.addEventListener('click', function() {
-      if (currentIndex < fontSizes.length - 1) {
-        updateFontSize(currentIndex + 1);
-      }
-    });
+    // Legacy support for ID-based buttons
+    const decreaseBtn = document.getElementById('font-decrease');
+    const increaseBtn = document.getElementById('font-increase');
+    const resetBtn = document.getElementById('font-reset');
+
+    if (decreaseBtn) {
+      decreaseBtn.addEventListener('click', function() {
+        if (currentIndex > 0) updateFontSize(currentIndex - 1);
+      });
+    }
+
+    if (increaseBtn) {
+      increaseBtn.addEventListener('click', function() {
+        if (currentIndex < fontSizes.length - 1) updateFontSize(currentIndex + 1);
+      });
+    }
 
     if (resetBtn) {
       resetBtn.addEventListener('click', function() {
-        updateFontSize(1); // Reset to medium
+        updateFontSize(1);
       });
     }
   }

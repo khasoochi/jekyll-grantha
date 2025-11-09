@@ -78,6 +78,49 @@
     <a href="{{ '/about/' | relative_url }}" class="main-nav__item {% if page.url == '/about/' %}main-nav__item--active{% endif %}">
       About
     </a>
+    <a href="{{ '/help/' | relative_url }}" class="main-nav__item {% if page.url == '/help/' %}main-nav__item--active{% endif %}">
+      Help
+    </a>
+
+    <!-- Mobile controls -->
+    <div class="mobile-controls">
+      <h4>Controls</h4>
+
+      <!-- Font size -->
+      <div class="mobile-control-row">
+        <span class="mobile-control-label">Font Size:</span>
+        <div class="font-controls">
+          <button class="font-controls__btn" data-action="decrease" aria-label="Decrease font size">A−</button>
+          <button class="font-controls__btn font-controls__reset" data-action="reset" aria-label="Reset font size">A</button>
+          <button class="font-controls__btn" data-action="increase" aria-label="Increase font size">A+</button>
+        </div>
+      </div>
+
+      <!-- Theme toggle -->
+      {% if site.theme_settings.features.night_mode %}
+      <div class="mobile-control-row">
+        <span class="mobile-control-label">Theme:</span>
+        <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+          <span class="theme-toggle__slider"></span>
+        </button>
+      </div>
+      {% endif %}
+
+      <!-- Search (mobile) -->
+      {% if site.theme_settings.features.search %}
+      <div class="mobile-search">
+        <label for="search-input-mobile" class="mobile-control-label">Search:</label>
+        <input
+          type="search"
+          class="search__input"
+          id="search-input-mobile"
+          placeholder="Search site..."
+          aria-label="Search"
+        />
+        <div class="search__results" id="search-results-mobile"></div>
+      </div>
+      {% endif %}
+    </div>
   </nav>
 </header>
 
@@ -92,5 +135,58 @@
     .header-controls {
       display: none;
     }
+  }
+
+  .mobile-controls {
+    display: block;
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--color-border);
+    margin-top: var(--spacing-md);
+  }
+
+  @media (min-width: 768px) {
+    .mobile-controls {
+      display: none;
+    }
+  }
+
+  .mobile-controls h4 {
+    margin: 0 0 var(--spacing-md) 0;
+    font-size: var(--font-size-base);
+    color: var(--color-accent);
+  }
+
+  .mobile-control-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+  }
+
+  .mobile-control-label {
+    font-size: var(--font-size-small);
+    font-weight: 500;
+  }
+
+  .mobile-search {
+    margin-top: var(--spacing-md);
+  }
+
+  .mobile-search label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-size-small);
+    font-weight: 500;
+  }
+
+  .mobile-search input {
+    width: 100%;
+  }
+
+  .mobile-search .search__results {
+    position: relative;
+    top: 0;
+    margin-top: var(--spacing-sm);
   }
 </style>

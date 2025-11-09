@@ -104,9 +104,21 @@
     }
   }
 
+  &__result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+  }
+
   &__result-title {
     font-weight: 600;
-    margin-bottom: var(--spacing-xs);
+    flex: 1;
+  }
+
+  &__result-type {
+    font-size: var(--font-size-xsmall);
+    margin-left: var(--spacing-sm);
   }
 
   &__result-excerpt {
@@ -119,6 +131,10 @@
       padding: 0 0.2em;
       border-radius: 2px;
     }
+  }
+
+  &__error {
+    padding: var(--spacing-md);
   }
 
   &__no-results {
