@@ -31,8 +31,10 @@
     {% include header.html %}
 
     <!-- Progress tracker -->
-    {% if site.theme_settings.features.progress_tracker and page.layout == 'text' or page.layout == 'verse' %}
-      {% include progress-tracker.html %}
+    {% if site.theme_settings.features.progress_tracker %}
+      {% if page.layout == 'text' or page.layout == 'verse' %}
+        {% include progress-tracker.html %}
+      {% endif %}
     {% endif %}
 
     <!-- Main content area -->
@@ -53,8 +55,10 @@
   </div>
 
   <!-- Bookmark button (if enabled) -->
-  {% if site.theme_settings.features.bookmarks and page.layout == 'text' or page.layout == 'verse' %}
-    {% include bookmark-button.html %}
+  {% if site.theme_settings.features.bookmarks %}
+    {% if page.layout == 'text' or page.layout == 'verse' %}
+      {% include bookmark-button.html %}
+    {% endif %}
   {% endif %}
 
   <!-- Keyboard shortcuts hint -->

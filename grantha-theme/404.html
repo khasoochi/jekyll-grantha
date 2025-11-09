@@ -1,0 +1,112 @@
+---
+layout: default
+title: Page Not Found
+permalink: /404.html
+---
+
+<style>
+  .error-page {
+    text-align: center;
+    padding: var(--spacing-xxl) var(--spacing-md);
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .error-page__code {
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .error-page__title {
+    font-size: 2rem;
+    margin: var(--spacing-lg) 0;
+  }
+
+  .error-page__message {
+    font-size: var(--font-size-large);
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+  }
+
+  .error-page__ornament {
+    font-size: 3rem;
+    color: var(--color-gold);
+    margin: var(--spacing-xl) 0;
+  }
+
+  .error-page__suggestions {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .error-page__suggestions ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .error-page__suggestions li {
+    margin-bottom: var(--spacing-md);
+    padding-left: var(--spacing-lg);
+    position: relative;
+  }
+
+  .error-page__suggestions li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-accent);
+  }
+
+  .error-page__actions {
+    margin-top: var(--spacing-xl);
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
+
+<div class="error-page">
+  <div class="error-page__ornament">❦</div>
+
+  <h1 class="error-page__code">404</h1>
+
+  <h2 class="error-page__title">Page Not Found</h2>
+
+  <p class="error-page__message">
+    The page you're looking for doesn't exist or has been moved.
+    Like a lost manuscript, it seems to have vanished into the mists of time.
+  </p>
+
+  <div class="error-page__suggestions">
+    <h3>Suggestions:</h3>
+    <ul>
+      <li>Check the URL for typos</li>
+      <li>Use the search function to find what you're looking for</li>
+      <li>Browse the <a href="{{ '/texts/' | relative_url }}">texts collection</a></li>
+      <li>Return to the <a href="{{ '/' | relative_url }}">homepage</a></li>
+    </ul>
+  </div>
+
+  <div class="error-page__actions">
+    <a href="{{ '/' | relative_url }}" class="btn btn--primary">
+      Go to Homepage
+    </a>
+    <a href="{{ '/texts/' | relative_url }}" class="btn">
+      Browse Texts
+    </a>
+    <button class="btn" onclick="document.getElementById('search-input').focus()">
+      Search Site
+    </button>
+  </div>
+
+  <div class="error-page__ornament">❦</div>
+</div>
